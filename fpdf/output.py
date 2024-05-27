@@ -795,8 +795,7 @@ class OutputProducer:
             for page_obj in page_objs:
                 page_obj.resources = resources_dict_obj
         else:
-            for i, page_obj in enumerate(page_objs):
-                page_number = i + 1
+            for page_number, page_obj in enumerate(page_objs, start=1):
                 page_font_objs_per_index = {
                     font_id: font_objs_per_index[font_id]
                     for font_id in self.fpdf.fonts_used_per_page_number[page_number]
