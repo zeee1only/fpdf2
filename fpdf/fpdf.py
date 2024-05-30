@@ -1828,6 +1828,74 @@ class FPDF(GraphicsStateMixin, TextRegionMixin):
             style,
         )
 
+    def bezier(self, point_list, closed=False, style=None):
+        """
+        Outputs a quadratic or cubic Bézier curve, defined by three or four coordinates.
+
+        Args:
+            point_list (list of tuples): List of Abscissa and Ordinate of
+                                        segments that should be drawn. Should be
+                                        three or four tuples. The first and last
+                                        points are the start and end point. The
+                                        middle point(s) are the control point(s).
+            closed (bool): True to draw the curve as a closed path, False (default)
+                                        for it to be drawn as an open path.
+            style (fpdf.enums.RenderStyle, str): Optional style of rendering. Allowed values are:
+            * `D` or None: draw border. This is the default value.
+            * `F`: fill
+            * `DF` or `FD`: draw and fill
+        """
+        points = len(point_list)
+        if points not in (3, 4):
+            raise ValueError(
+                "point_list should contain 3 tuples for a quadratic curve"
+                "or 4 tuples for a cubic curve."
+            )
+
+        if style is None:
+            style = RenderStyle.DF
+        else:
+            style = RenderStyle.coerce(style)
+
+        # QuadraticBezierCurve and BezierCurve make use of `initial_point` when instantiated.
+        # If we want to define all 3 (quad.) or 4 (cubic) points, we can set `initial_point`
+        # to be the first point given in `point_list` by creating a separate dummy path at that pos.
+        with self.drawing_context() as ctxt:
+            p1 = point_list[0]
+            x1, y1 = p1[0], p1[1]
+
+            dummy_path = PaintedPath(x1, y1)
+            ctxt.add_item(dummy_path)
+
+            p2 = point_list[1]
+            x2, y2 = p2[0], p2[1]
+
+            p3 = point_list[2]
+            x3, y3 = p3[0], p3[1]
+
+            if points == 4:
+                p4 = point_list[3]
+                x4, y4 = p4[0], p4[1]
+
+            path = PaintedPath(x1, y1)
+
+            # Translate enum style (RenderStyle) into rule (PathPaintRule)
+            rule = PathPaintRule.STROKE_FILL_NONZERO
+            if style.is_draw and not style.is_fill:
+                rule = PathPaintRule.STROKE
+            elif style.is_fill and not style.is_draw:
+                rule = PathPaintRule.FILL_NONZERO
+
+            path.style.paint_rule = rule
+            path.style.auto_close = closed
+
+            if points == 4:
+                path.curve_to(x2, y2, x3, y3, x4, y4)
+            elif points == 3:
+                path.curve_to(x2, y2, x2, y2, x3, y3)
+
+            ctxt.add_item(path)
+
     def add_font(self, family=None, style="", fname=None, uni="DEPRECATED"):
         """
         Imports a TrueType or OpenType font and makes it available
