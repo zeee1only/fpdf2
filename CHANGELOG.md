@@ -18,6 +18,7 @@ This can also be enabled programmatically with `warnings.simplefilter('default',
 
 ## [2.7.10] - Not released yet
 ### Added
+* Wrapping words on spaces now considers all common space symbols in addition to regular spaces (' '), addressing issues with word-wrapping for languages like Thai, as per [#1190](https://github.com/py-pdf/fpdf2/issues/1190) and [#1191](https://github.com/py-pdf/fpdf2/pull/1191).
 * [`Templates`](https://py-pdf.github.io/fpdf2/fpdf/Templates.html) can now be also defined in JSON files.
 * support to optionally set `wrapmode` in templates (default `"WORD"` can optionally be set to `"CHAR"` to support wrapping on characters for scripts like Chinese or Japanese) - _cf._ [#1159](https://github.com/py-pdf/fpdf2/issues/1159) - thanks to @carlhiggs
 * support for quadratic and cubic Bézier curves with [`FPDF.bezier()`](https://py-pdf.github.io/fpdf2/fpdf/Shapes.html#fpdf.fpdf.FPDF.bezier) - thanks to @awmc000
