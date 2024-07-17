@@ -1199,6 +1199,16 @@
         "bug",
         "code"
       ]
+    },
+    {
+      "login": "Makaze",
+      "name": "Christopher Lane",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2280429?v=4",
+      "profile": "https://github.com/Makaze",
+      "contributions": [
+        "doc",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
