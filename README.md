@@ -287,6 +287,7 @@ This library could only exist thanks to the dedication of many volunteers around
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://sezerbozkir.com/"><img src="https://avatars.githubusercontent.com/u/6623948?v=4?s=100" width="100px;" alt="Sezer Bozkır"/><br /><sub><b>Sezer Bozkır</b></sub></a><br /><a href="#translation-Natgho" title="Translation">🌍</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/odhyp"><img src="https://avatars.githubusercontent.com/u/78688788?v=4?s=100" width="100px;" alt="Odhy Pradhana"/><br /><sub><b>Odhy Pradhana</b></sub></a><br /><a href="#translation-odhyp" title="Translation">🌍</a></td>
     </tr>
   </tbody>
 </table>
