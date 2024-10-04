@@ -120,7 +120,7 @@ from .unicode_script import UnicodeScript, get_unicode_script
 from .util import get_scale_factor, Padding
 
 # Public global variables:
-FPDF_VERSION = "2.8.0"
+FPDF_VERSION = "2.8.1"
 PAGE_FORMATS = {
     "a3": (841.89, 1190.55),
     "a4": (595.28, 841.89),

@@ -18,7 +18,7 @@ This can also be enabled programmatically with `warnings.simplefilter('default',
 
 ## [2.8.1] - Not released yet
 
-## [2.8.0] - 2024-10-04
+## [2.8.1] - 2024-10-04
 ### Added
 * support for escape character for markers in markdown text [issue #1215](https://github.com/py-pdf/fpdf2/issues/1215)
 * Wrapping words on spaces now considers all common space symbols in addition to regular spaces (' '), addressing issues with word-wrapping for languages like Thai, as per [#1190](https://github.com/py-pdf/fpdf2/issues/1190) and [#1191](https://github.com/py-pdf/fpdf2/pull/1191).
@@ -59,6 +59,12 @@ This can also be enabled programmatically with `warnings.simplefilter('default',
 * improved performance of font glyph selection by using functools cache
 - New translation of the tutorial in Türkçe, thanks to @natgho: [Türkçe](https://py-pdf.github.io/fpdf2/Tutorial-tr.html); 
 * Clarified usage of the `style` attribute in [`FPDF.add_font()`](https://py-pdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.add_font)
+
+## [2.8.0] - 2024-10-04
+This version was only uploaded a few minutes on [Pypi](https://pypi.org/),
+and then deleted manually by a maintainer, erroneously fearing a regression.
+
+Version 2.8.1 is exactly similar.
 
 ## [2.7.9] - 2024-05-17
 ### Added
