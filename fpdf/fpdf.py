@@ -2739,39 +2739,42 @@ class FPDF(GraphicsStateMixin, TextRegionMixin):
                 draw_some_stuff()
 
         The affected settings are those controlled by GraphicsStateMixin and drawing.GraphicsStyle:
-            allow_transparency
-            auto_close
-            blend_mode
-            char_vpos
-            char_spacing
-            dash_pattern
-            denom_lift
-            denom_scale
-            draw_color
-            fill_color
-            fill_opacity
-            font_family
-            font_size
-            font_size_pt
-            font_style
-            font_stretching
-            intersection_rule
-            line_width
-            nom_lift
-            nom_scale
-            paint_rule
-            stroke_cap_style
-            stroke_join_style
-            stroke_miter_limit
-            stroke_opacity
-            sub_lift
-            sub_scale
-            sup_lift
-            sup_scale
-            text_color
-            text_mode
-            text_shaping
-            underline
+
+        * allow_transparency
+        * auto_close
+        * blend_mode
+        * char_vpos
+        * char_spacing
+        * dash_pattern
+        * denom_lift
+        * denom_scale
+        * draw_color
+        * fill_color
+        * fill_opacity
+        * font_family
+        * font_size
+        * font_size_pt
+        * font_style
+        * font_stretching
+        * intersection_rule
+        * line_width
+        * nom_lift
+        * nom_scale
+        * paint_rule
+        * stroke_cap_style
+        * stroke_join_style
+        * stroke_miter_limit
+        * stroke_opacity
+        * sub_lift
+        * sub_scale
+        * sup_lift
+        * sup_scale
+        * text_color
+        * text_mode
+        * text_shaping
+        * underline
+
+        Font size can be specified in document units with `font_size` or in points with `font_size_pt`.
 
         Args:
             **kwargs: key-values settings to set at the beggining of this context.
