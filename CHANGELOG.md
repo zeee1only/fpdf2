@@ -11,7 +11,7 @@ and [PEP 440](https://www.python.org/dev/peps/pep-0440/).
 `DeprecationWarning` messages are not displayed by Python by default.
 
 Hence, every time you use a newer version of `fpdf2`, we strongly encourage you to execute your scripts
-with the `-Wd` option (_cf._ [documentation](https://docs.python.org/3/using/cmdline.html#cmdoption-W)) 
+with the `-Wd` option (_cf._ [documentation](https://docs.python.org/3/using/cmdline.html#cmdoption-W))
 in order to get warned about deprecated features used in your code.
 
 This can also be enabled programmatically with `warnings.simplefilter('default', DeprecationWarning)`.
@@ -27,6 +27,7 @@ This can also be enabled programmatically with `warnings.simplefilter('default',
 * support for quadratic and cubic Bézier curves with [`FPDF.bezier()`](https://py-pdf.github.io/fpdf2/fpdf/Shapes.html#fpdf.fpdf.FPDF.bezier) - thanks to @awmc000
 * documentation on how to use `fpdf2` with [Rough.js](https://roughjs.com/): [link to docs](https://py-pdf.github.io/fpdf2/CombineWithRoughJS.html)
 * documentation on how to use `fpdf2` with [gunicorn](https://gunicorn.org/): [link to docs](https://py-pdf.github.io/fpdf2/UsageInWebAPI.html#gunicorn)
+* new translation of the tutorial in Türkçe, thanks to @natgho: [Türkçe](https://py-pdf.github.io/fpdf2/Tutorial-tr.html)
 * feature to identify the Unicode script of the input text and break it into fragments when different scripts are used, improving [text shaping](https://py-pdf.github.io/fpdf2/TextShaping.html) results
 * [`FPDF.image()`](https://py-pdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.image): now handles `keep_aspect_ratio` in combination with an enum value provided to `x`
 * [`FPDF.write_html()`](https://py-pdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.write_html): now supports CSS page breaks properties : [documentation](https://py-pdf.github.io/fpdf2/HTML.html#page-breaks)
@@ -50,7 +51,7 @@ This can also be enabled programmatically with `warnings.simplefilter('default',
 ### Removed
 * an obscure and undocumented [feature](https://github.com/py-pdf/fpdf2/issues/1198) of [`FPDF.write_html()`](https://py-pdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.write_html), which used to magically pass instance attributes as arguments.
 ### Deprecated
-* `fpdf.TitleStyle` has been renamed into `fpdf.TextStyle`
+* `fpdf.TitleStyle` has been renamed into [`fpdf.TextStyle`](https://py-pdf.github.io/fpdf2/fpdf/fonts.html#fpdf.fonts.TextStyle)
 * [`FPDF.write_html()`](https://py-pdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.write_html): `tag_indents` introduced in the last version - Now the indentation can be provided through the `tag_styles` parameter, using the `.l_margin` of `TextStyle` instances
 ### Changed
 * [`FPDF.local_context()`](https://py-pdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.local_context) used to treat `font_size` as a value in points. Now this is the role of `font_size_pt`, whereas `font_size` allows to set the font size into chosen document units (specified with `FPDF(unit=)`) - MR: [#1207](https://github.com/py-pdf/fpdf2/pulls/1207)
@@ -58,7 +59,6 @@ This can also be enabled programmatically with `warnings.simplefilter('default',
 * [`FPDF.table()`](https://py-pdf.github.io/fpdf2/Tables.html) now raises an error when a single row is too high to be rendered on a single page
 * [`FPDF.write_html()`](https://py-pdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.write_html): indentation of HTML elements can now be non-integer (float), and is now independent of font size and bullet strings.
 * improved performance of font glyph selection by using functools cache
-- New translation of the tutorial in Türkçe, thanks to @natgho: [Türkçe](https://py-pdf.github.io/fpdf2/Tutorial-tr.html); 
 * Clarified usage of the `style` attribute in [`FPDF.add_font()`](https://py-pdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.add_font)
 
 ## [2.8.0] - 2024-10-04
@@ -152,7 +152,7 @@ This release also marks the arrival of two new maintainers: Georg Mischler ([@gm
 * documentation on how to use `livereload` to enable a "watch" mode with PDF generation: [Combine with livereload](https://py-pdf.github.io/fpdf2/CombineWithLivereload.html) - thanks to @Lucas-C
 ### Changed
 * [`FPDF.write_html()`](https://py-pdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.write_html): the formatting output has changed in some aspects. Vertical spacing around headings and paragraphs may be slightly different, and elements at the top of the page don't have any extra spacing above anymore.
-* [`FPDF.table()`](https://py-pdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.table): If the height of a row is governed by an image, then the default vertical alignment of the other cells is "center". This was "top". 
+* [`FPDF.table()`](https://py-pdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.table): If the height of a row is governed by an image, then the default vertical alignment of the other cells is "center". This was "top".
 * variable-width non-breaking space (NBSP) support [issue #834](https://github.com/PyFPDF/fpdf2/issues/834)
 This change was made for consistency between row-height governed by text or images. The old behaviour can be enforced using the new vertical alignment parameter.
 ### Fixed
@@ -293,7 +293,7 @@ This change was made for consistency between row-height governed by text or imag
 - fixed [`insert_toc_placeholder()`](https://py-pdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.insert_toc_placeholder) usage with [`footer()`](https://py-pdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.footer) and `{{nb}}`; [#548](https://github.com/py-pdf/fpdf2/issues/548)
 - the SVG parser now accepts `stroke-width` attribute values with an explicit unit, thanks to @gmischler; [#526](https://github.com/py-pdf/fpdf2/issues/526)
 - the SVG parser now accepts absolute units for `width` and `height` attributes, thanks to @darioackermann; [#555](https://github.com/py-pdf/fpdf2/issues/555)
-- `write_html()` method now correctly handles whitespace when parsing HTML. `<pre></pre>` blocks still maintain spaces, tabs and line breaks. 
+- `write_html()` method now correctly handles whitespace when parsing HTML. `<pre></pre>` blocks still maintain spaces, tabs and line breaks.
 ### Changed
 - the first parameter of `FPDF.add_font()` is now **optional**: if it is not provided, the base name of the `fname` font path is used to define the font family. Hence `pdf.add_font(fname="fonts/NotoSansArabic.ttf")` will define a font named `NotoSansArabic`.
 - the output of [`embed_file()`](https://py-pdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.embed_file) is now a `PDFEmbeddedFile`, not a string, but the internal file name can be retrieved through its `.basename` property
@@ -471,7 +471,7 @@ Thanks to @torque for contributing this massive new feature:
 - While images transparency is still handled by default through the use of `SMask`,
   this can be disabled by setting `pdf.allow_images_transparency = False`
   in order to allow compliance with [PDF/A-1](https://en.wikipedia.org/wiki/PDF/A#Description)
-- [`FPDF.arc`](https://py-pdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.arc): new method added. 
+- [`FPDF.arc`](https://py-pdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.arc): new method added.
   It enables to draw arcs in a PDF document.
 - [`FPDF.solid_arc`](https://py-pdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.solid_arc): new method added.
   It enables to draw solid arcs in a PDF document. A solid arc combines an arc and a triangle to form a pie slice.
@@ -663,7 +663,7 @@ prevented strings passed first to the text-rendering methods to be displayed.
 ### Removed
 * non-necessary dependency on `numpy`
 * support for Python 2
- 
+
 ## [2.0.6] - 2020-10-26
 ### Added
 * Python 3.9 is now supported
