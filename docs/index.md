@@ -122,7 +122,6 @@ Online classes & open source projects:
     * [Wheelodex](https://www.wheelodex.org/projects/fpdf2/rdepends/)
     * [deps.dev](https://deps.dev/pypi/fpdf2/2.8.1/dependents)
     * [packages.ecosyste.ms](https://packages.ecosyste.ms/registries/pypi.org/packages/fpdf2/dependent_packages)
-Some are also listed on [its libraries.io page](https://libraries.io/pypi/fpdf2).
 
 [![Star history](https://api.star-history.com/svg?repos=py-pdf/fpdf2)](https://star-history.com/#py-pdf/fpdf2)
 

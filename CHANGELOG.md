@@ -16,15 +16,15 @@ in order to get warned about deprecated features used in your code.
 
 This can also be enabled programmatically with `warnings.simplefilter('default', DeprecationWarning)`.
 
-## [2.8.1] - Not released yet
+## [2.8.2] - Not released yet
 
 ## [2.8.1] - 2024-10-04
 ### Added
+* support for quadratic and cubic Bézier curves with [`FPDF.bezier()`](https://py-pdf.github.io/fpdf2/fpdf/Shapes.html#fpdf.fpdf.FPDF.bezier) - thanks to @awmc000
 * support for escape character for markers in markdown text [issue #1215](https://github.com/py-pdf/fpdf2/issues/1215)
 * Wrapping words on spaces now considers all common space symbols in addition to regular spaces (' '), addressing issues with word-wrapping for languages like Thai, as per [#1190](https://github.com/py-pdf/fpdf2/issues/1190) and [#1191](https://github.com/py-pdf/fpdf2/pull/1191).
 * [`Templates`](https://py-pdf.github.io/fpdf2/fpdf/Templates.html) can now be also defined in JSON files.
 * support to optionally set `wrapmode` in templates (default `"WORD"` can optionally be set to `"CHAR"` to support wrapping on characters for scripts like Chinese or Japanese) - _cf._ [#1159](https://github.com/py-pdf/fpdf2/issues/1159) - thanks to @carlhiggs
-* support for quadratic and cubic Bézier curves with [`FPDF.bezier()`](https://py-pdf.github.io/fpdf2/fpdf/Shapes.html#fpdf.fpdf.FPDF.bezier) - thanks to @awmc000
 * documentation on how to use `fpdf2` with [Rough.js](https://roughjs.com/): [link to docs](https://py-pdf.github.io/fpdf2/CombineWithRoughJS.html)
 * documentation on how to use `fpdf2` with [gunicorn](https://gunicorn.org/): [link to docs](https://py-pdf.github.io/fpdf2/UsageInWebAPI.html#gunicorn)
 * new translation of the tutorial in Türkçe, thanks to @natgho: [Türkçe](https://py-pdf.github.io/fpdf2/Tutorial-tr.html)
@@ -93,7 +93,7 @@ Version 2.8.1 is exactly similar.
 ### Added
 * support for `<path>` elements in SVG `<clipPath>` elements
 * support for `bidirectional` [text shaping](https://py-pdf.github.io/fpdf2/TextShaping.html) - thanks to @andersonhc
-* documentation on how to combine `fpdf2` with [mistletoe](https://pypi.org/project/kaleido/) in order to [generate PDF documents from Markdown (link)](https://py-pdf.github.io/fpdf2/CombineWithMistletoeoToUseMarkdown.html)
+* documentation on how to combine `fpdf2` with [mistletoe](https://pypi.org/project/mistletoe/) in order to [generate PDF documents from Markdown (link)](https://py-pdf.github.io/fpdf2/CombineWithMistletoeoToUseMarkdown.html)
 * support for `Table` cells that span multiple rows via the `rowspan` attribute, which can be combined with `colspan` - thanks to @mjasperse
 * `TableSpan.COL` and `TableSpan.ROW` enums that can be used as placeholder table entries to identify span extents - thanks to @mjasperse
 ### Fixed
@@ -149,7 +149,7 @@ This release also marks the arrival of two new maintainers: Georg Mischler ([@gm
 * [`FPDF.table()`](https://py-pdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.table): Now supports outer border width for rendering the outer border of the table with a different line-width - thanks to @RubendeBruin
 * [`FPDF.table()`](https://py-pdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.table): Now supports multiple heading rows : [documentation](https://py-pdf.github.io/fpdf2/Tables.html#table-with-multiple-heading-rows) - thanks to @SandraFer
 * [`FPDF.write_html()`](https://py-pdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.write_html) now supports heading colors defined as attributes (_e.g._ `<h2 color="#00ff00">...`) - thanks to @Lucas-C
-* documentation on how to use `livereload` to enable a "watch" mode with PDF generation: [Combine with livereload](https://py-pdf.github.io/fpdf2/CombineWithLivereload.html) - thanks to @Lucas-C
+* documentation on how to use `livereload` to enable a "watch" mode while performing PDF generation: [Combine with livereload](https://py-pdf.github.io/fpdf2/CombineWithLivereload.html) - thanks to @Lucas-C
 ### Changed
 * [`FPDF.write_html()`](https://py-pdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.write_html): the formatting output has changed in some aspects. Vertical spacing around headings and paragraphs may be slightly different, and elements at the top of the page don't have any extra spacing above anymore.
 * [`FPDF.table()`](https://py-pdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.table): If the height of a row is governed by an image, then the default vertical alignment of the other cells is "center". This was "top".
