@@ -24,25 +24,43 @@ class ViewerPreferences:
         print_clip=None,
     ):
         self.hide_toolbar = hide_toolbar
-        "A flag specifying whether to hide the conforming reader’s tool bars when the document is active"
+        """
+        (`bool`)
+        A flag specifying whether to hide the conforming reader’s tool bars when the document is active
+        """
         self.hide_menubar = hide_menubar
-        "A flag specifying whether to hide the conforming reader’s menu bar when the document is active"
+        """
+        (`bool`)
+        A flag specifying whether to hide the conforming reader’s menu bar when the document is active
+        """
         self.hide_window_u_i = hide_window_u_i
         """
+        (`bool`)
         A flag specifying whether to hide user interface elements in the document’s window
         (such as scroll bars and navigation controls), leaving only the document’s contents displayed
         """
         self.fit_window = fit_window
-        "A flag specifying whether to resize the document’s window to fit the size of the first displayed page"
+        """
+        (`bool`)
+        A flag specifying whether to resize the document’s window to fit the size of the first displayed page
+        """
         self.center_window = center_window
-        "A flag specifying whether to position the document’s window in the center of the screen"
+        """
+        (`bool`)
+        A flag specifying whether to position the document’s window in the center of the screen
+        """
         self.display_doc_title = display_doc_title
         """
+        (`bool`)
         A flag specifying whether the window’s title bar should display the document title
         taken from the Title entry of the document information dictionary.
         If false, the title bar should instead display the name of the PDF file containing the document.
         """
         self.non_full_screen_page_mode = non_full_screen_page_mode
+        """
+        (`fpdf.enums.PageMode`)
+        The document’s page mode, specifying how to display the document on exiting full-screen mode
+        """
         if self.non_full_screen_page_mode in (
             PageMode.FULL_SCREEN,
             PageMode.USE_ATTACHMENTS,
@@ -52,11 +70,13 @@ class ViewerPreferences:
             )
         self.num_copies = num_copies
         """
+        (`int`)
         The number of copies that shall be printed when the print dialog is opened for this file.
         Values outside this range shall be ignored. Default value: as defined by the conforming reader, but typically 1
         """
         self.print_page_range = print_page_range
         """
+        (`list[int]`)
         The page numbers used to initialize the print dialog box when the file is printed.
         The array shall contain an even number of integers to be interpreted in pairs,
         with each pair specifying the first and last pages in a sub-range of pages to be printed.
@@ -64,38 +84,41 @@ class ViewerPreferences:
         """
         self.direction = direction
         """
+        (`fpdf.enums.TextDirection`)
         The predominant reading order for text.
-        _cf. `fpdf.enums.TextDirection`
         """
         self.duplex = duplex
         """
+        (`fpdf.enums.Duplex`)
         The paper handling option that shall be used when printing the file from the print dialog.
-        _cf. `fpdf.enums.Duplex`
         """
         self.view_area = view_area
         """
+        (`fpdf.enums.PageBoundaries`)
         The name of the page boundary representing the area of a page that shall be displayed when viewing the document on the screen.
         Default value: CropBox.
         """
         self.view_clip = view_clip
         """
+        (`fpdf.enums.PageBoundaries`)
         The name of the page boundary to which the contents of a page shall be clipped when viewing the document on the screen.
         Default value: CropBox.
         """
         self.print_area = print_area
         """
+        (`fpdf.enums.PageBoundaries`)
         The name of the page boundary representing the area of a page that shall be rendered when printing the document.
         Default value: CropBox.
         """
         self.print_clip = print_clip
         """
+        (`fpdf.enums.PageBoundaries`)
         The name of the page boundary to which the contents of a page shall be clipped when printing the document.
         Default value: CropBox.
         """
 
     @property
     def non_full_screen_page_mode(self):
-        "(`fpdf.enums.PageMode`) The document’s page mode, specifying how to display the document on exiting full-screen mode"
         return self._non_full_screen_page_mode
 
     @non_full_screen_page_mode.setter
@@ -106,7 +129,6 @@ class ViewerPreferences:
 
     @property
     def direction(self):
-        "(`fpdf.enums.TextDirection`) The predominant reading order for text"
         return self._direction
 
     @direction.setter
@@ -115,7 +137,6 @@ class ViewerPreferences:
 
     @property
     def duplex(self):
-        "(`fpdf.enums.Duplexe`) The paper handling option that shall be used when printing the file from the print dialog"
         return self._duplex
 
     @duplex.setter
@@ -124,10 +145,6 @@ class ViewerPreferences:
 
     @property
     def view_area(self):
-        """
-        (`fpdf.enums.PageBoundaries`) The name of the page boundary representing the area of a page that shall be displayed
-        when viewing the document on the screen
-        """
         return self._view_area
 
     @view_area.setter
@@ -138,10 +155,6 @@ class ViewerPreferences:
 
     @property
     def view_clip(self):
-        """
-        (`fpdf.enums.PageBoundaries`) The name of the page boundary to which the contents of a page shall be clipped
-        when viewing the document on the screen.
-        """
         return self._view_clip
 
     @view_clip.setter
@@ -152,7 +165,6 @@ class ViewerPreferences:
 
     @property
     def print_area(self):
-        "(`fpdf.enums.PageBoundaries`) The name of the page boundary representing the area of a page that shall be rendered when printing the document"
         return self._print_area
 
     @print_area.setter
@@ -163,7 +175,6 @@ class ViewerPreferences:
 
     @property
     def print_clip(self):
-        "(`fpdf.enums.PageBoundaries`) The name of the page boundary to which the contents of a page shall be clipped when printing the document"
         return self._print_clip
 
     @print_clip.setter
