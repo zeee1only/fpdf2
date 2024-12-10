@@ -14,7 +14,9 @@ wb = load_workbook(sys.argv[1])
 ws = wb.active
 with pdf.table() as table:
     for i, row in enumerate(ws.rows):
-        # We color the row based on the hexadecimal code in the 2nd column:
-        style = FontFace(fill_color=color_from_hex_string(row[1].value)) if i > 0 else None
+        style = None
+        if i > 0:
+            # We color the row based on the hexadecimal code in the 2nd column:
+            style = FontFace(fill_color=color_from_hex_string(row[1]))
         table.row([cell.value for cell in row], style=style)
 pdf.output("from-xlsx.pdf")

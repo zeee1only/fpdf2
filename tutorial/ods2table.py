@@ -16,7 +16,9 @@ for sheet in ods.getElementsByType(Table):
     with pdf.table() as table:
         for i, row in enumerate(sheet.getElementsByType(TableRow)):
             row = [str(cell) for cell in row.getElementsByType(TableCell)]
-            # We color the row based on the hexadecimal code in the 2nd column:
-            style = FontFace(fill_color=color_from_hex_string(row[1])) if i > 0 else None
+            style = None
+            if i > 0:
+                # We color the row based on the hexadecimal code in the 2nd column:
+                style = FontFace(fill_color=color_from_hex_string(row[1]))
             table.row(row, style=style)
 pdf.output("from-ods.pdf")
