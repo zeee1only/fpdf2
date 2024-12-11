@@ -2,6 +2,8 @@
 
 <img src="table-from-spreadsheet.png" style="max-width: 15rem">
 
+All the details on tables and options to style them are detailed on the dedicated page: [Tables](Tables.md).
+
 ## From a .csv spreadsheet
 Example input file: [color_srgb.csv](../tutorial/color_srgb.csv)
 ```python
@@ -19,3 +21,6 @@ Example input file: [color_srgb.ods](../tutorial/color_srgb.ods)
 ```python
 {% include "../tutorial/ods2table.py" %}
 ```
+
+## From pandas DataFrame
+_cf._ [Maths documentation page](Maths.md#using-pandas)

@@ -547,9 +547,11 @@ Result:
 
 ![](table_with_multiple_headings.png)
 
-## Table from pandas DataFrame
+## Table from pandas DataFrame or spreadsheet files
+We have dedicated pages about those topics:
 
-_cf._ [Maths documentation page](Maths.md#using-pandas)
+* [Maths documentation page](Maths.md#using-pandas)
+* [Rendering spreadsheets as PDF tables](RenderingSpreadsheetsAsPDFTables.md)
 
 ## Using write_html
 
