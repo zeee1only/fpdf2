@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# USAGE: ./csv2table.py spreadsheet.csv
+# USAGE: ./csv2table.py color_srgb.csv
 import csv, sys
 from fpdf import FPDF, FontFace
 from fpdf.drawing import color_from_hex_string

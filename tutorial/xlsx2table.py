@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Script Dependencies:
 #    openxlsx
-# USAGE: ./xlsx2table.py spreadsheet.xlsx
+# USAGE: ./xlsx2table.py color_srgb.xlsx
 import sys
 from fpdf import FPDF, FontFace
 from fpdf.drawing import color_from_hex_string

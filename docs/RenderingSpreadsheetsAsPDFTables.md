@@ -5,19 +5,19 @@
 All the details on tables and options to style them are detailed on the dedicated page: [Tables](Tables.md).
 
 ## From a .csv spreadsheet
-Example input file: [color_srgb.csv](../tutorial/color_srgb.csv)
+Example input file: [color_srgb.csv](./color_srgb.csv)
 ```python
 {% include "../tutorial/csv2table.py" %}
 ```
 
 ## From a .xlsx spreadsheet
-Example input file: [color_srgb.xlsx](../tutorial/color_srgb.xlsx)
+Example input file: [color_srgb.xlsx](./color_srgb.xlsx)
 ```python
 {% include "../tutorial/xlsx2table.py" %}
 ```
 
 ## From an .ods spreadsheet
-Example input file: [color_srgb.ods](../tutorial/color_srgb.ods)
+Example input file: [color_srgb.ods](./color_srgb.ods)
 ```python
 {% include "../tutorial/ods2table.py" %}
 ```

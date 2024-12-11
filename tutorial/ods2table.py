@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Script Dependencies:
 #    odfpy
-# USAGE: ./ods2table.py spreadsheet.ods
+# USAGE: ./ods2table.py color_srgb.ods
 import sys
 from fpdf import FPDF, FontFace
 from fpdf.drawing import color_from_hex_string
