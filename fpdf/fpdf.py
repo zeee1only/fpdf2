@@ -5212,6 +5212,10 @@ class FPDF(GraphicsStateMixin, TextRegionMixin):
             if text_style.size_pt is not None:
                 prev_font_size_pt = self.font_size_pt
                 self.font_size_pt = text_style.size_pt
+            # check if l_margin value is of type Align or string
+            align = Align.L
+            if isinstance(text_style.l_margin, (Align, str)):
+                align = Align.coerce(text_style.l_margin)
             page_break_triggered = self.multi_cell(
                 w=self.epw,
                 h=self.font_size,
@@ -5220,9 +5224,14 @@ class FPDF(GraphicsStateMixin, TextRegionMixin):
                 new_y=YPos.NEXT,
                 dry_run=True,  # => does not produce any output
                 output=MethodReturnValue.PAGE_BREAK,
+                align=align,
                 padding=Padding(
                     top=text_style.t_margin or 0,
-                    left=text_style.l_margin or 0,
+                    left=(
+                        text_style.l_margin
+                        if isinstance(text_style.l_margin, (int, float))
+                        else 0
+                    ),
                     bottom=text_style.b_margin or 0,
                 ),
             )
@@ -5238,8 +5247,10 @@ class FPDF(GraphicsStateMixin, TextRegionMixin):
                         w=self.epw,
                         h=self.font_size,
                         text=name,
+                        align=align,
                         new_x=XPos.LMARGIN,
                         new_y=YPos.NEXT,
+                        center=text_style.l_margin == Align.C,
                     )
         self._outline.append(
             OutlineSection(name, level, self.page, dest, outline_struct_elem)
@@ -5247,15 +5258,27 @@ class FPDF(GraphicsStateMixin, TextRegionMixin):
 
     @contextmanager
     def use_text_style(self, text_style: TextStyle):
+        prev_l_margin = None
         if text_style:
             if text_style.t_margin:
                 self.ln(text_style.t_margin)
             if text_style.l_margin:
-                self.set_x(text_style.l_margin)
+                if isinstance(text_style.l_margin, (float, int)):
+                    prev_l_margin = self.l_margin
+                    self.l_margin = text_style.l_margin
+                    self.x = self.l_margin
+                else:
+                    LOGGER.debug(
+                        "Unsupported '%s' value provided as l_margin to .use_text_style()",
+                        text_style.l_margin,
+                    )
         with self.use_font_face(text_style):
             yield
         if text_style and text_style.b_margin:
             self.ln(text_style.b_margin)
+        if prev_l_margin is not None:
+            self.l_margin = prev_l_margin
+            self.x = self.l_margin
 
     @contextmanager
     def use_font_face(self, font_face: FontFace):
