@@ -1,6 +1,6 @@
 # Introduction #
 
-Templates are predefined documents (like invoices, tax forms, etc.), or parts of such documents, where each element (text, lines, barcodes, etc.) has a fixed position (x1, y1, x2, y2), style (font, size, etc.) and a default text.
+Templates are a `fpdf2` feature that define predefined documents (like invoices, tax forms, etc.), or parts of such documents, where each element (text, lines, barcodes, etc.) has a fixed position (x1, y1, x2, y2), style (font, size, etc.) and a default text.
 
 These elements can act as placeholders, so the program can change the default text "filling in" the document.
 

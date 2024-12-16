@@ -168,7 +168,7 @@ pdf.output("html_helvetica.pdf")
 * `<ol>`, `<ul>`, `<li>`: ordered, unordered and list items (can be nested)
 * `<dl>`, `<dt>`, `<dd>`: description list, title, details (can be nested)
 * `<sup>`, `<sub>`: superscript and subscript text
-* `<table>`: (with `align`, `border`, `width`, `cellpadding`, `cellspacing` attributes)
+* `<table>`: (with `align`, `border`, `width`, `cellpadding`, `cellspacing` attributes) those tags are rendered using [fpdf2 Tables layout](https://py-pdf.github.io/fpdf2/Tables.html) and the following sub-tags are supported:
     + `<thead>`: optional tag, wraps the table header row
     + `<tfoot>`: optional tag, wraps the table footer row
     + `<tbody>`: optional tag, wraps the table rows with actual content

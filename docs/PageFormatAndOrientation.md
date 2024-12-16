@@ -58,6 +58,9 @@ pdf.output("two-column.pdf")
 ```
 
 ## Viewer preferences ##
+Those settings are detailed in the official PDF format specification,
+but may not be honored by PDF viewers.
+If a setting seems ignored, this is probably not a bug with `fpdf2`, but a choice or a missing feature from your PDF renderer software.
 
 ```python
 from fpdf import FPDF, ViewerPreferences

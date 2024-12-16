@@ -13,7 +13,7 @@ TABLE_DATA = (
     ("Jules", "Smith", "34", "San Juan"),
     ("Mary", "Ramos", "45", "Orlando"),
     ("Carlson", "Banks", "19", "Los Angeles"),
-    ("Lucas", "Cimon", "31", "Saint-Mathurin-sur-Loire"),
+    ("Lucas", "Cimon", "31", "Angers"),
 )
 pdf = FPDF()
 pdf.add_page()
