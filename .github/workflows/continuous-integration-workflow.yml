@@ -138,7 +138,7 @@ jobs:
           print-hash: true
       - name: Generate & release sigstore signatures 🔑
         if: steps.build.outputs.publish == 'yes'
-        uses: sigstore/gh-action-sigstore-python@v2.1.1
+        uses: sigstore/gh-action-sigstore-python@v3.0.0
         # Doc: https://github.com/marketplace/actions/gh-action-sigstore-python
         with:
           inputs: ./dist/*.tar.gz ./dist/*.whl
