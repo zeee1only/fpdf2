@@ -1,5 +1,7 @@
 # Patterns and Gradients
 
+_New in [:octicons-tag-24: 2.8.3](https://github.com/py-pdf/fpdf2/blob/master/CHANGELOG.md)_
+
 ## Overview
 
 In PDF (Portable Document Format), a **pattern** is a graphical object that can be used to fill (or stroke) shapes. Patterns can include simple color fills, images, or more advanced textures and gradients. 
@@ -51,8 +53,9 @@ with pdf.use_pattern(linear_grad):
     # Draw a rectangle that will be filled with the gradient
     pdf.rect(x=10, y=10, w=100, h=20, style="FD")
 
-pdf.output("linear_gradient_example.pdf")
+pdf.output("pattern_linear_demo.pdf")
 ```
+Result: [pattern_linear_demo.pdf](./pattern_linear_demo.pdf)
 
 **Key Parameters**:
 
@@ -76,8 +79,8 @@ pdf.add_page()
 # Define a radial gradient
 radial_grad = RadialGradient(
     pdf,
-    start_circle_x=50,               # Center X of inner circle
-    start_circle_y=50,               # Center Y of inner circle
+    start_circle_x=30,               # Center X of inner circle
+    start_circle_y=30,               # Center Y of inner circle
     start_circle_radius=0,           # Radius of inner circle
     end_circle_x=50,                 # Center X of outer circle
     end_circle_y=50,                 # Center Y of outer circle
@@ -89,8 +92,9 @@ with pdf.use_pattern(radial_grad):
     # Draw a circle filled with the radial gradient
     pdf.circle(x=50, y=50, radius=25, style="FD")
 
-pdf.output("radial_gradient_example.pdf")
+pdf.output("pattern_radial_demo.pdf")
 ```
+Result: [pattern_radial_demo.pdf](./pattern_radial_demo.pdf)
 
 **Key Parameters**:
 

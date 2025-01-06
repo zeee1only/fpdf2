@@ -131,20 +131,14 @@ In order to generate a "reference" PDF file, simply call `assert_pdf_equal`
 once with `generate=True`.
 
 ```python
-import fpdf
-
-svg = fpdf.svg.SVGObject.from_file("path/to/file.svg")
-pdf = fpdf.FPDF(unit="pt", format=(svg.width, svg.height))
-pdf.add_page()
-svg.draw_to_page(pdf)
-
-assert_pdf_equal(
-    pdf,  
-    "path/for/pdf/output.pdf",
-    "path/for/pdf/",
-    generate=True
-)
+def test_some_feature(tmp_path):
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.rect(10, 10, 60, 80)
+    assert_pdf_equal(pdf, HERE / "some_feature.pdf", tmp_path, generate=True)
 ```
+
+Next you can invoke `pytest path/to/test.py` to generate the file `some_feature.pdf`.
 
 ### Visually comparing all PDF reference files modified on a branch
 This script will build an serve a single HTML page containing
@@ -252,12 +246,13 @@ To preview the API documentation, launch a local rendering server with:
 The **PDF 1.7 spec** is available on Adobe website:
 [PDF32000_2008.pdf](https://opensource.adobe.com/dc-acrobat-sdk-docs/pdfstandards/PDF32000_2008.pdf).
 
-The **PDF 2.0 spec** is available on the [Adobe website](https://developer.adobe.com/document-services/docs/assets/5b15559b96303194340b99820d3a70fa/PDF_ISO_32000-2.pdf) or on the [PDF Association website](https://www.pdfa.org/sponsored-standards)
+The **PDF 2.0 spec** is available on the [Adobe website](https://developer.adobe.com/document-services/docs/assets/5b15559b96303194340b99820d3a70fa/PDF_ISO_32000-2.pdf) or on the [PDF Association website](https://www.pdfa.org/sponsored-standards).
 
 It may be intimidating at first, but while technical, it is usually quite clear and understandable.
 
 It is also a great place to look for new features for `fpdf2`:
 there are still many PDF features that this library does not support.
+
 
 ## Useful tools to manipulate PDFs
 
@@ -273,13 +268,17 @@ qpdf --qdf doc.pdf doc-qdf.pdf
 
 This is extremely useful to peek into the PDF document structure.
 
-### set_pdf_xref.py
+### pdfly
 
-[set_pdf_xref.py](https://github.com/Lucas-C/dotfiles_and_notes/blob/master/languages/python/set_pdf_xref.py) is a small Python script that can **rebuild a PDF xref table**.
+`pdfly` is a very handy CLI tool to manipulate PDF files: [py-pdf/pdfly](https://github.com/py-pdf/pdfly?tab=readme-ov-file#usage).
 
-This is very useful, as a PDF with an invalid xref cannot be opened.
-An xref table is basically an index of the document internal sections.
+Those are some very useful commands:
+
+* `cat`: concatenate pages from PDF files into a single PDF file
+* `meta`: show metadata of a PDF file
+* `x2pdf`: convert one or more files to PDF. Each file is a page.
+* `update-offsets`: rebuild a PDF xref table. This is allows to manually edit a PDF file in a text editor, and then fix its xref table so that a PDF viewer will be able to open it.
+
+A **xref table** is basically an index of the document internal sections.
 When manually modifying a PDF file (for example one produced by `qpdf --qdf`),
 if the characters count in any of its sections changes, the xref table must be rebuilt.
-
-With `set_pdf_xref.py doc.pdf --inplace`, you can change some values inside any PDF file, and then quickly make it valid again to be viewed in a PDF viewer.

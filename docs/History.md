@@ -11,11 +11,11 @@ About the original `PyFPDF` lib:
 > Later, in the Python FPDF library, code for native reading TTF fonts was added.
 > In 2008 it was moved from a SVN repository to git on [Google Code](https://code.google.com/p/pyfpdf/)
 > by Mariano Reingart, who became the maintainer of FPDF.
-> In 2013, it was migrated to GitHub: https://github.com/reingart/pyfpdf.
+> In 2013, it was migrated to GitHub: <https://github.com/reingart/pyfpdf>.
 > You can still access the [old issues](https://github.com/reingart/pyfpdf_googlecode/issues),
 > and [old wiki](https://github.com/reingart/pyfpdf_googlecode/tree/wiki),
 > that were moved to a dedicated repository.
-> The original roadmap can also still be found there: https://github.com/reingart/pyfpdf/wiki/Roadmap
+> The original roadmap can also still be found there: <https://github.com/reingart/pyfpdf/wiki/Roadmap>
 
 ## How fpdf2 came to be ##
 
