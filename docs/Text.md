@@ -4,13 +4,13 @@ There are several ways in fpdf to add text to a PDF document, each of which come
 
 ## Simple Text Methods
 
-| method | lines | markdown support | HTML support | text shaping | accepts new current position | details                                                                                                                                                         |
-| -- | :--: | :--: | :--: | :--: | :--: |-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [`.text()`](#text)  | one | no | no | no | fixed | Inserts a single-line text string with a precise location on the base line of the font.                                                                         |
-| [`.cell()`](#cell)  | one | yes | no | yes | yes | Inserts a single-line text string within the boundaries of a given box, optionally with background and border.                                                  |
-| [`.multi_cell()`](#multi_cell) | several | yes | no | yes | yes | Inserts a multi-line text string within the boundaries of a given box, optionally with background, border and padding.                                          |
-| [`.write()`](#write) | several | no | no | yes | auto | Inserts a multi-line text string within the boundaries of the page margins, starting at the current x/y location (typically the end of the last inserted text). |
-| [`.write_html()`](#write_html) | several | no | yes | yes | auto | An extension to `.write()`, with additional parsing of basic HTML tags.
+| Method | Lines | [Markdown](TextStyling.md#markdowntrue) & [HTML](HTML.md) support | Supports [text shaping](TextShaping.md) | Details
+| -- | :--: | :--: | :--: |-
+| [`.text()`](#text)  | one | none | no | Inserts a single-line text string with a precise location on the base line of the font.
+| [`.cell()`](#cell)  | one | Markdown | yes | Inserts a single-line text string within the boundaries of a given box, optionally with background and border.
+| [`.multi_cell()`](#multi_cell) | several | Markdown | yes | Inserts a multi-line text string within the boundaries of a given box, optionally with background, border and padding.
+| [`.write()`](#write) | several | none | yes | Inserts a multi-line text string within the boundaries of the page margins, starting at the current x/y location (typically the end of the last inserted text).
+| [`.write_html()`](#write_html) | several | HTML | yes | auto | An extension to `.write()`, with additional parsing of basic HTML tags.
 
 ## Flowable Text Regions
 
@@ -19,14 +19,16 @@ The currently implemented type of text regions is [text_columns()](TextColumns.h
 
 ## Typography and Language Specific Concepts 
 ### Supported Features
-With supporting Unicode fonts, fpdf2 should handle the following text shaping features correctly. More details can be found in [TextShaping](TextShaping.html).
+With supporting Unicode fonts, `fpdf2` should handle the following text shaping features correctly. More details can be found in [TextShaping](TextShaping.md).
+
 * Automatic ligatures / glyph substitution - Some writing systems (eg. most Indic scripts such as Devaganari, Tamil, Kannada) frequently combine a number of written characters into a single glyph. In latin script, "ff", "fi", "ft", "st" and others are often combined. In programming fonts "<=", "++" "!=" etc. may be combined into more compact representations.
 * Special diacritics that use separate code points (eg. in Diné Bizaad, Hebrew) will be placed in the correct location relative to their base character.
 * Kerning, where the spacing between characters varies depending on their combination (eg. moving the succeeding lowercase character closer to an uppercase "T".
 * Left-to-right and right-to-left text formatting (the latter most prominently in Arabic and Hebrew).
 
 ### Limitations
-There are a few advanced typesetting features that fpdf doesn't currently support.
+There are a few advanced typesetting features that `fpdf2` doesn't currently support:
+
 * Contextual forms - In some writing systems (eg. Arabic, Mongolian, etc.), characters may take a different shape, depending on whether they appear at the beginning, in the middle, or at the end of a word, or isolated. Fpdf will always use the same standard shape in those cases.
 * Vertical writing - Some writing systems are meant to be written vertically. Doing so is not directly supported. In cases where this just means to stack characters on top of each other (eg. Chinese, Japanese, etc.), client software can implement this by placing each character individuall at the correct location. In cases where the characters are connected with each other (eg. Mongolian), this may be more difficult, if possible at all.
 
