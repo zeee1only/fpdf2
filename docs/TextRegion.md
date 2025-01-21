@@ -6,6 +6,7 @@ Text regions are a hierarchy of classes that enable to flow text within a given 
 There are two general categories of regions. One defines boundaries for running text that will just continue in the same manner one the next page. Those include columns and tables. The second category are distinct shapes. Examples would be a circle, a rectangle, a polygon of individual shape or even an image. They may be used individually, in combination, or to modify the outline of a multipage column. Shape regions will typically not cause a page break when they are full. In the future, a possibility to chain them may be implemented, so that a new shape will continue with the text that didn't fit into the previous one.
 
 The currently implemented text regions are:
+
 * [Text Columns](TextColumns.html)
 
 Other types like Table cells, shaped regions and combinations are still in the design phase, see [Quo vadis, .write()?](https://github.com/py-pdf/fpdf2/discussions/339).
@@ -19,7 +20,7 @@ Using the different region types and combination always follows the same pattern
 * future: (_If desired, add or subtract other shapes from it (with geometric regions)_).
 -->
 * Use the `.write()` method of this text region in order to feed text into its buffer.
-* Best practise is to use the region instance as a context manager for filling.
+* Best practice is to use the region instance as a context manager for filling.
     * Text will be rendered automatically after closing the context.
     * When used as a context manager, you can change all text styling parameters within that context, and they will be used by the added text, but won't leak to the surroundings
 * Alternatively, eg. for filling a single column of text with the already existing settings, just use the region instance as is. In that case, you'll have to explicitly use the `render()` method after adding the text.
@@ -32,6 +33,7 @@ The graphic shows the relationship of page, text areas and paragraphs (with vary
 
 ### Text Start Position ###
 When rendering, the vertical start position of the text will be at the lowest one out of:
+
 * the current y position
 * the top of the region (if it has a defined top)
 * the top margin of the page.
