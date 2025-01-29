@@ -8,6 +8,7 @@ in non-backward-compatible ways.
 """
 
 import re, warnings
+import logging
 
 from bisect import bisect_left
 from collections import defaultdict
@@ -16,6 +17,7 @@ from functools import lru_cache
 from typing import List, Optional, Tuple, Union
 
 from fontTools import ttLib
+from fontTools.pens.ttGlyphPen import TTGlyphPen
 
 try:
     import uharfbuzz as hb
@@ -36,6 +38,8 @@ from .drawing import convert_to_device_color, DeviceGray, DeviceRGB
 from .enums import FontDescriptorFlags, TextEmphasis, Align
 from .syntax import Name, PDFObject
 from .util import escape_parens
+
+LOGGER = logging.getLogger(__name__)
 
 
 @dataclass
@@ -267,6 +271,40 @@ class TTFFont:
         )
 
         self.scale = 1000 / self.ttfont["head"].unitsPerEm
+
+        # check if the font is a TrueType and missing a .notdef glyph
+        # if it is missing, provide a fallback glyph
+        if "glyf" in self.ttfont and ".notdef" not in self.ttfont["glyf"]:
+            LOGGER.warning(
+                (
+                    "TrueType Font '%s' is missing the '.notdef' glyph. "
+                    "Fallback glyph will be provided."
+                ),
+                self.fontkey,
+            )
+            # draw a diagonal cross .notdef glyph
+            (xMin, xMax, yMin, yMax) = (
+                self.ttfont["head"].xMin,
+                self.ttfont["head"].xMax,
+                self.ttfont["head"].yMin,
+                self.ttfont["head"].yMax,
+            )
+            pen = TTGlyphPen(self.ttfont["glyf"])
+            pen.moveTo((xMin, yMin))
+            pen.lineTo((xMax, yMin))
+            pen.lineTo((xMax, yMax))
+            pen.lineTo((xMin, yMax))
+            pen.closePath()
+            pen.moveTo((xMin, yMin))
+            pen.lineTo((xMax, yMax))
+            pen.closePath()
+            pen.moveTo((xMax, yMin))
+            pen.lineTo((xMin, yMax))
+            pen.closePath()
+
+            self.ttfont["glyf"][".notdef"] = pen.glyph()
+            self.ttfont["hmtx"][".notdef"] = (xMax - xMin, yMax - yMin)
+
         default_width = round(self.scale * self.ttfont["hmtx"].metrics[".notdef"][0])
 
         os2_table = self.ttfont["OS/2"]
