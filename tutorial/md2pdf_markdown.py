@@ -60,7 +60,8 @@ ___
 
 ![Alternate description](https://py-pdf.github.io/fpdf2/fpdf2-logo.png)
 """,
-extensions=["def_list", "sane_lists", "tables"])
+    extensions=["def_list", "sane_lists", "tables"],
+)
 
 from fpdf import FPDF
 

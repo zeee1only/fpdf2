@@ -1,7 +1,10 @@
 from markdown_it import MarkdownIt
 
-md = MarkdownIt("commonmark", {"breaks":True,"html":True})\
-    .enable("strikethrough").enable("table")
+md = (
+    MarkdownIt("commonmark", {"breaks": True, "html": True})
+    .enable("strikethrough")
+    .enable("table")
+)
 html = md.render(
     """
 # Top title (ATX)
