@@ -236,7 +236,7 @@ class PDFICCPObject(PDFContentStream):
 
 
 class PDFPageLabel:
-    __slots__ = ["_style", "_prefix", "st"]
+    __slots__ = ("_style", "_prefix", "st")  # RAM usage optimization
 
     def __init__(
         self, label_style: PageLabelStyle, label_prefix: str, label_start: int
@@ -254,6 +254,9 @@ class PDFPageLabel:
         return PDFString(self._prefix) if self._prefix else None
 
     def __repr__(self):
+        return f"PDFPageLabel({self._style}, {self._prefix}, {self.st})"
+
+    def __str__(self):
         ret = self._prefix if self._prefix else ""
         if self._style:
             if self._style == PageLabelStyle.NUMBER:
@@ -266,7 +269,7 @@ class PDFPageLabel:
                 ret += int_to_letters(self.st - 1)
             elif self._style == PageLabelStyle.LOWER_LETTER:
                 ret += int_to_letters(self.st - 1).lower()
-        return None if ret == "" else ret
+        return ret
 
     def serialize(self) -> dict:
         return build_obj_dict({key: getattr(self, key) for key in dir(self)})
@@ -319,6 +322,7 @@ class PDFPage(PDFObject):
         self.struct_parents = None
         self.resources = None  # must always be set before calling .serialize()
         self.parent = None  # must always be set before calling .serialize()
+        # Useful properties that will not be serialized in the final PDF document:
         self._index = index
         self._width_pt, self._height_pt = None, None
         self._page_label: PDFPageLabel = None
@@ -326,6 +330,9 @@ class PDFPage(PDFObject):
 
     def index(self):
         return self._index
+
+    def set_index(self, i):
+        self._index = i
 
     def dimensions(self):
         "Return a pair (width, height) in the unit specified to FPDF constructor"
@@ -527,7 +534,7 @@ class OutputProducer:
         self.pdf_objs.append(xref)
 
         # 2. Plumbing - Inject all PDF object references required:
-        pages_root_obj.kids = PDFArray(self._reorder_page_objects(page_objs))
+        pages_root_obj.kids = PDFArray(page_objs)
         self._finalize_catalog(
             catalog_obj,
             pages_root_obj=pages_root_obj,
@@ -627,10 +634,19 @@ class OutputProducer:
         self._add_pdf_obj(pages_root_obj)
         return pages_root_obj
 
+    def _iter_pages_in_order(self):
+        for page_index in range(1, self.fpdf.pages_count + 1):
+            page_obj = self.fpdf.pages[page_index]
+            # Defensive check:
+            assert (
+                page_obj.index() == page_index
+            ), f"{page_obj.index()=} != {page_index=}"
+            yield page_obj
+
     def _add_pages(self, _slice=slice(0, None)):
         fpdf = self.fpdf
         page_objs = []
-        for page_obj in list(fpdf.pages.values())[_slice]:
+        for page_obj in list(self._iter_pages_in_order())[_slice]:
             if fpdf.pdf_version > "1.3":
                 page_obj.group = pdf_dict(
                     {"/Type": "/Group", "/S": "/Transparency", "/CS": "/DeviceRGB"},
@@ -649,16 +665,6 @@ class OutputProducer:
             page_obj.contents = cs_obj
 
         return page_objs
-
-    def _reorder_page_objects(self, page_objs: list):
-        "Reorder page objects to move any Table of Contents pages generated at the end of the document to follow the ToC placeholder."
-        if not self.fpdf._toc_inserted_pages:
-            return page_objs
-        reordered = page_objs.copy()
-        for _ in range(self.fpdf._toc_inserted_pages):
-            last_page = reordered.pop()
-            reordered.insert(self.fpdf.toc_placeholder.start_page, last_page)
-        return reordered
 
     def _add_annotations_as_objects(self):
         sig_annotation_obj = None
@@ -1209,14 +1215,10 @@ class OutputProducer:
             catalog_obj.names = pdf_dict(
                 {"/EmbeddedFiles": pdf_dict({"/Names": pdf_list(file_spec_names)})}
             )
-        ordered_pages = list(fpdf.pages.items())
-        for _ in range(self.fpdf._toc_inserted_pages):
-            last_page = ordered_pages.pop()
-            ordered_pages.insert(self.fpdf.toc_placeholder.start_page, last_page)
         page_labels = [
-            f"{seq} {pdf_dict(page[1].get_page_label().serialize())}"
-            for (seq, page) in enumerate(ordered_pages)
-            if page[1].get_page_label()
+            f"{i} {pdf_dict(page.get_page_label().serialize())}"
+            for i, page in enumerate(self._iter_pages_in_order())
+            if page.get_page_label()
         ]
         if page_labels and not fpdf.pages[1].get_page_label():
             # If page labels are used, an entry for sequence 0 is mandatory
