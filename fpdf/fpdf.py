@@ -967,9 +967,7 @@ class FPDF(GraphicsStateMixin, TextRegionMixin):
         )
         if self.page > 0 and (not self.in_toc_rendering or in_toc_extra_page):
             # Page footer
-            self.in_footer = True
-            self.footer()
-            self.in_footer = False
+            self._render_footer()
 
         current_page_label = (
             None if self.page == 0 else self.pages[self.page].get_page_label()
@@ -1049,6 +1047,22 @@ class FPDF(GraphicsStateMixin, TextRegionMixin):
             )
         # END Page header
 
+    def _render_footer(self):
+        self.in_footer = True
+        should_protect_graphics_state = (
+            self.toc_placeholder and self.toc_placeholder.start_page == self.page
+        )
+        if should_protect_graphics_state:
+            # The ToC is rendered AFTER the footer,
+            # so we must ensure there is no "style leak":
+            self._push_local_stack()
+            self._start_local_context()
+        self.footer()
+        if should_protect_graphics_state:
+            self._end_local_context()
+            self._pop_local_stack()
+        self.in_footer = False
+
     def _beginpage(
         self, orientation, format, same, duration, transition, new_page=True
     ):
@@ -1097,6 +1111,9 @@ class FPDF(GraphicsStateMixin, TextRegionMixin):
         and should not be called directly by the user application.
         The default implementation performs nothing: you have to override this method
         in a subclass to implement your own rendering logic.
+
+        Note that header rendering can have an impact on the initial
+        (x,y) position when starting to render the page content.
         """
 
     def footer(self):
@@ -4893,9 +4910,7 @@ class FPDF(GraphicsStateMixin, TextRegionMixin):
             raise FPDFException(error_msg)
         if self._toc_inserted_pages:
             # Generating final page footer after more pages were inserted:
-            self.in_footer = True
-            self.footer()
-            self.in_footer = False
+            self._render_footer()
             # We need to reorder the pages, because some new pages have been inserted in the ToC,
             # but they have been inserted at the end of self.pages:
             new_pages = [
@@ -5242,6 +5257,7 @@ class FPDF(GraphicsStateMixin, TextRegionMixin):
         """
         Configure Table Of Contents rendering at the end of the document generation,
         and reserve some vertical space right now in order to insert it.
+        At least one page break is triggered by this method.
 
         Args:
             render_toc_function (function): a function that will be invoked to render the ToC.
@@ -5256,6 +5272,10 @@ class FPDF(GraphicsStateMixin, TextRegionMixin):
                 separate numbering style for the ToC is recommended.
             reset_page_indices (bool): Whether to reset the pages indixes after the ToC. Default to True.
         """
+        if pages < 1:
+            raise ValueError(
+                f"'pages' parameter must be equal or greater than 1: {pages}"
+            )
         if not callable(render_toc_function):
             raise TypeError(
                 f"The first argument must be a callable, got: {type(render_toc_function)}"
@@ -5525,9 +5545,7 @@ class FPDF(GraphicsStateMixin, TextRegionMixin):
             if self.page == 0:
                 self.add_page()
             # Generating final page footer:
-            self.in_footer = True
-            self.footer()
-            self.in_footer = False
+            self._render_footer()
             # Generating .buffer based on .pages:
             if self.toc_placeholder:
                 self._insert_table_of_contents()
