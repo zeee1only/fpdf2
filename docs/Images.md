@@ -200,7 +200,7 @@ pdf.add_output_intent(
     "sRGB",
     'IEC 61966-2-1:1999',
     "http://www.color.org",
-    iccp_file,
+    icc_file,
     "sRGB2014 (v2)",
 )
 ```
@@ -210,6 +210,9 @@ The needed profiles and descriptions can be found at [International Color Consor
 ## ICC Profiles
 
 The ICC profile of the included images are read through the PIL function `Image.info.get("icc_profile)"` and are included in the PDF as objects.
+
+An ICC profile can also be added by using the [`.add_output_intent()` method](https://py-pdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.add_output_intent),
+as described in the previous section.
 
 ## Oversized images detection & downscaling ##
 
