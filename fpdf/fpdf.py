@@ -481,7 +481,7 @@ class FPDF(GraphicsStateMixin, TextRegionMixin):
         return self._output_intents.values()
 
     # @output_intents.setter
-    def set_output_intent(
+    def add_output_intent(
         self,
         subtype: OutputIntentSubType,
         output_condition_identifier: str = None,
@@ -509,7 +509,7 @@ class FPDF(GraphicsStateMixin, TextRegionMixin):
         """
         if subtype.value in self._output_intents:
             raise ValueError(
-                "set_output_intent: subtype '" + subtype.value + "' already exists."
+                "add_output_intent: subtype '" + subtype.value + "' already exists."
             )
         self._output_intents[subtype.value] = OutputIntentDictionary(
             subtype,

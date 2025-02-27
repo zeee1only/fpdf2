@@ -175,7 +175,7 @@ _New in [:octicons-tag-24: 2.8.3](https://github.com/py-pdf/fpdf2/blob/master/CH
 
 > Output Intents [allow] the contents of referenced icc profiles to be embedded directly within the body of the PDF file. This makes the PDF file a self-contained unit that can be stored or transmitted as a single entity.
 
-The dedicated method for adding output intent to a PDF is [`set_output_intent()`](https://py-pdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.set_output_intent).
+The dedicated method for adding output intent to a PDF is [`add_output_intent()`](https://py-pdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.add_output_intent).
 
 You can optionally provide a [`PDFICCProfileObject`](https://py-pdf.github.io/fpdf2/fpdf/output.html#fpdf.output.PDFICCProfileObject) as `icc_profile`.
 
@@ -195,7 +195,7 @@ with open(HERE / "sRGB2014.icc", "rb") as iccp_file:
         contents=iccp_file.read(), n=3, alternate="DeviceRGB"
     )
 
-pdf.set_output_intent(
+pdf.add_output_intent(
     OutputIntentSubType.PDFA,
     "sRGB",
     'IEC 61966-2-1:1999',
