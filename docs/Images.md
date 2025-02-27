@@ -170,13 +170,12 @@ Beware that "flattening" images into JPEGs this way will fill transparent areas 
 The allowed `image_filter` values are listed in the [image_parsing]( https://github.com/py-pdf/fpdf2/blob/master/fpdf/image_parsing.py) module and are currently:
 `FlateDecode` (lossless zlib/deflate compression), `DCTDecode` (lossy compression with JPEG) and `JPXDecode` (lossy compression with JPEG2000).
 
-## Output Intends ##
+## Output Intents ##
 _New in [:octicons-tag-24: 2.8.3](https://github.com/py-pdf/fpdf2/blob/master/CHANGELOG.md)_
 
-> Output Intends [allow] the contents of referenced icc profiles to be embedded directly within the body of the PDF file. This makes the PDF file a self-contained unit that can be stored or transmitted as a single entity.
+> Output Intents [allow] the contents of referenced icc profiles to be embedded directly within the body of the PDF file. This makes the PDF file a self-contained unit that can be stored or transmitted as a single entity.
 
-### Adding Output Intent and optionally specifying an ICCProfile ###
-The dedicated method for this is [`set_output_intent()`](https://py-pdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.set_output_intent).
+The dedicated method for adding output intent to a PDF is [`set_output_intent()`](https://py-pdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.set_output_intent).
 
 You can optionally provide a [`PDFICCProfileObject`](https://py-pdf.github.io/fpdf2/fpdf/output.html#fpdf.output.PDFICCProfileObject) as `icc_profile`.
 
