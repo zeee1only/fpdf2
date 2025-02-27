@@ -178,6 +178,8 @@ The allowed `image_filter` values are listed in the [image_parsing]( https://git
 `fpdf2` gives access to this feature through the method [`set_output_intent()`](https://py-pdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.set_output_intent):
 
 #### Specify ICCProfile Stream ####
+_New in [:octicons-tag-24: 2.8.3](https://github.com/py-pdf/fpdf2/blob/master/CHANGELOG.md)_
+
 [`ICCProfileStreamDict`](https://py-pdf.github.io/fpdf2/fpdf/output.html#fpdf.output.output.ICCProfileStreamDict) Class is needed to specify the file object of the referenced icc profile.
 
 #### Example: ####

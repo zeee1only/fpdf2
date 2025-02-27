@@ -1245,12 +1245,13 @@ class OutputProducer:
 
     def _add_output_intents(self):
         """should be added in _add_catalog"""
-        if not self.fpdf.output_intents:
+        output_intents = self.fpdf.output_intents
+        if not output_intents:
             return None
-        for item in self.fpdf.output_intents:
-            if item.dest_output_profile:
-                self._add_pdf_obj(item.dest_output_profile)
-        return PDFArray(self.fpdf.output_intents)
+        for output_intent in output_intents:
+            if output_intent.dest_output_profile:
+                self._add_pdf_obj(output_intent.dest_output_profile)
+        return PDFArray(output_intents)
 
     def _add_catalog(self):
         fpdf = self.fpdf
