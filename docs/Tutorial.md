@@ -236,6 +236,8 @@ As an alternative, another option to change the font style and add links is to
 
 ## Tuto 7 - Creating PDF/A Documents ##
 
+_New in [:octicons-tag-24: 2.8.3](https://github.com/py-pdf/fpdf2/blob/master/CHANGELOG.md)_
+
 ### PDF/A Standards ###
 
 <b>PDF/A-1</b> uses PDF-Version 1.4. All resources (pictures, graphics, fonts) must be embedded in the document. The color management must be precise and platform independently specified with ICC-Profiles and the document metadata must be given with XMP-Metadata.
@@ -271,7 +273,7 @@ we create the pdf by calling `create_pdf_with_metadata()`,
 that uses [pikepdf](https://pypi.org/project/pikepdf/)
 to create the necessary metadata and set the type to PDF/A-3B.
 
-For information on PDF metadata, check the dedicated documentation page: [Metadata](Metadata.md).
+For more information on PDF metadata, check the dedicated documentation page: [Metadata](Metadata.md).
 
 Note that instead of using a function, you could also subclass `FPDF.output()` to ensure that all your documents are PDF-A compliant, as done in [test/pdf-a/test_pdf_a.py](https://github.com/py-pdf/fpdf2/blob/master/test/pdf-a/test_pdf_a.py).
 

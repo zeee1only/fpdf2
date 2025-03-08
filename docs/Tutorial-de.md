@@ -191,6 +191,8 @@ Eine weitere Möglichkeit, den Schriftstil zu ändern und Links hinzuzufügen, s
 
 ## Lektion 7 - Ein PDF/A Dokument erstellen ##
 
+_New in [:octicons-tag-24: 2.8.3](https://github.com/py-pdf/fpdf2/blob/master/CHANGELOG.md)_
+
 ### PDF/A Standards ###
 
 <b>PDF/A-1</b> basiert auf der PDF-Version 1.4. Alle Ressourcen (Bilder, Grafiken, Fonts) müssen im Document eingebettet werden. Erforderlich sind präzise und Plattform unabhängig kodierte Farbangaben mittels ICC-Profilen sowie die Verwendung von XMP für die Dokumenten-Metadaten.
