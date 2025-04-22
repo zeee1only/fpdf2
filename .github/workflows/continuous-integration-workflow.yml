@@ -202,6 +202,7 @@ jobs:
             *.githubusercontent.com:443
             pypi.org:443
             files.pythonhosted.org:443
+            upload.pypi.org:443
       - name: Checkout 🛎️
         uses: actions/checkout@v4
       - name: Set up Python 3.13 🔧
