@@ -47,7 +47,7 @@ class PDF(FPDF):
                     meta["dc:description"] = self.description
                 if self.keywords:
                     meta["pdf:Keywords"] = self.keywords
-                meta["pdf:Producer"] = f"py-pdf/fpdf{FPDF_VERSION}"
+                meta["pdf:Producer"] = f"py-pdf/fpdf2"
                 meta["xmp:CreatorTool"] = __name__
                 # meta["xmp:CreateDate"] = already done by assert_pdf_equal()
                 meta["pdfaid:part"] = "3"
