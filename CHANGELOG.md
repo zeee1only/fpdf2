@@ -16,7 +16,7 @@ in order to get warned about deprecated features used in your code.
 
 This can also be enabled programmatically with `warnings.simplefilter('default', DeprecationWarning)`.
 
-## [2.8.3] - Not released yet
+## [2.8.3] - 2025-04-22
 ### Added
 * added tutorial "tuto7" (in [English](https://py-pdf.github.io/fpdf2/Tutorial.html#tuto-7-creating-pdfa-documents) and [German](https://py-pdf.github.io/fpdf2/Tutorial-de.html#tuto-7-ein-pdfa-dokument-erstellen)) with documentation to create PDF/A files with fpdf2 - thanks to @lka
 * support for [Output Intents](https://py-pdf.github.io/fpdf2/Images.html#output-intents) on document level - thanks to @lka
