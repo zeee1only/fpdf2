@@ -143,6 +143,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       # required to deploy doc, by pushing commits to branch gh-pages:
+      contents: write
       pages: write
     steps:
       - name: Harden Runner
