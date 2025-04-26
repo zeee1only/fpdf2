@@ -19,6 +19,7 @@ This can also be enabled programmatically with `warnings.simplefilter('default',
 ## [2.8.4] - Not released yet
 ### Fixed
 * minor regular-expression optimization in the SVG parsing module, nullifying any risk of ReDOS attack
+* documentation on [internal linking with variable page numbers](https://py-pdf.github.io/fpdf2/Links.html#internal-links)
 
 ## [2.8.3] - 2025-04-22
 ### Added
