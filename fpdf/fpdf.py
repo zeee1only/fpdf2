@@ -931,6 +931,10 @@ class FPDF(GraphicsStateMixin, TextRegionMixin):
         label_prefix: str = None,
         label_start: int = None,
     ):
+        """
+        Enable `fpdf.output.PDFPageLabel` to be inserted on every page.
+        This will be displayed by some PDF readers to identify pages.
+        """
         current_page_label = None
         if self.page in self.pages:
             current_page_label = self.pages[self.page].get_page_label()
@@ -1184,6 +1188,11 @@ class FPDF(GraphicsStateMixin, TextRegionMixin):
         return self.page
 
     def get_page_label(self):
+        """
+        Return the current page `fpdf.output.PDFPageLabel`.
+        This will be displayed by some PDF readers to identify pages.
+        `FPDF.set_page_label()` needs to be called first for those to be inserted.
+        """
         return self.pages[self.page].get_label()
 
     def set_draw_color(self, r, g=-1, b=-1):
