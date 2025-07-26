@@ -1,4 +1,8 @@
-"""PDF Template Helpers for fpdf.py"""
+"""
+PDF template helpers for fpdf2.
+
+Usage documentation at: <https://py-pdf.github.io/fpdf2/Templates.html>
+"""
 
 __author__ = "Mariano Reingart <reingart@gmail.com>"
 __copyright__ = "Copyright (C) 2010 Mariano Reingart"
@@ -28,6 +32,8 @@ class FlexTemplate:
 
     Allows to apply one or several template definitions to any page of
     a document in any combination.
+
+    Usage documentation at: <https://py-pdf.github.io/fpdf2/Templates.html>
     """
 
     def __init__(self, pdf, elements=None):
@@ -613,6 +619,8 @@ class Template(FlexTemplate):
     A simple templating class.
 
     Allows to apply a single template definition to all pages of a document.
+
+    Usage documentation at: <https://py-pdf.github.io/fpdf2/Templates.html>
     """
 
     # Disabling this check due to the "format" parameter below:

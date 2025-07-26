@@ -1,3 +1,7 @@
+"""
+Usage documentation at: <https://py-pdf.github.io/fpdf2/Tables.html>
+"""
+
 from dataclasses import dataclass, replace
 from numbers import Number
 from typing import Optional, Union

@@ -442,7 +442,7 @@ class FPDF(GraphicsStateMixin, TextRegionMixin):
             warn_on_tags_not_matching (bool): control warnings production for unmatched HTML tags. Defaults to `True`.
             tag_indents (dict): [**DEPRECATED since v2.8.0**]
                 mapping of HTML tag names to numeric values representing their horizontal left indentation. - Set `tag_styles` instead
-            tag_styles (dict[str, fpdf.fonts.TextStyle]): mapping of HTML tag names to `fpdf.TextStyle` or `fpdf.FontFace` instances
+            tag_styles (dict[str, fpdf.fonts.TextStyle]): mapping of HTML tag names to `fpdf.fonts.TextStyle` or `fpdf.fonts.FontFace` instances
         """
         html2pdf = self.HTML2FPDF_CLASS(self, *args, **kwargs)
         with self.local_context():
