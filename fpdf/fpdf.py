@@ -607,6 +607,8 @@ class FPDF(GraphicsStateMixin, TextRegionMixin):
         Set auto page break mode and triggering bottom margin.
         By default, the mode is on and the bottom margin is 2 cm.
 
+        Detailed documentation on page breaks: https://py-pdf.github.io/fpdf2/PageBreaks.html
+
         Args:
             auto (bool): enable or disable this mode
             margin (float): optional bottom margin (distance from the bottom of the page)
@@ -3131,6 +3133,8 @@ class FPDF(GraphicsStateMixin, TextRegionMixin):
 
         The default implementation returns a value according to the mode selected by `FPDF.set_auto_page_break()`.
         This method is called automatically and should not be called directly by the application.
+
+        Detailed documentation on page breaks: https://py-pdf.github.io/fpdf2/PageBreaks.html
         """
         return self.auto_page_break
 
@@ -3887,6 +3891,8 @@ class FPDF(GraphicsStateMixin, TextRegionMixin):
         """
         Let you know if adding an element will trigger a page break,
         based on its height and the current ordinate (`y` position).
+
+        Detailed documentation on page breaks: https://py-pdf.github.io/fpdf2/PageBreaks.html
 
         Args:
             height (float): height of the section that would be added, e.g. a cell
@@ -5311,6 +5317,8 @@ class FPDF(GraphicsStateMixin, TextRegionMixin):
         """
         Ensures that all rendering performed in this context appear on a single page
         by performing page break beforehand if need be.
+
+        Detailed documentation on page breaks: https://py-pdf.github.io/fpdf2/PageBreaks.html
 
         Notes
         -----
