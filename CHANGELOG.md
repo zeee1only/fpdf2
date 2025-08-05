@@ -21,6 +21,7 @@ This can also be enabled programmatically with `warnings.simplefilter('default',
 * documentation on [internal linking with variable page numbers](https://py-pdf.github.io/fpdf2/Links.html#internal-links)
 * documentation on [using the Ibis library](https://py-pdf.github.io/fpdf2/Maths.html#using-ibis)
 * clarified docstring for `arc()` method to document `x` and `y` arguments ([#1473](https://github.com/py-pdf/fpdf2/issues/1473))
+* made `numpy` an optional dependency to improve the performance of `pack_codes_into_bytes()` - _cf._ [issue #1380](https://github.com/py-pdf/fpdf2/issues/1380)
 * macOS is now included in the GitHub Actions CI pipeline to ensure cross-platform test coverage
 
 ### Fixed
@@ -34,8 +35,9 @@ This can also be enabled programmatically with `warnings.simplefilter('default',
 * `multi_cell()` text clipping bug - [issue #1471](https://github.com/py-pdf/fpdf2/issues/1471)
 * HTML lists bullets are now properly displayed when using unicode fonts - _cf._ [issue #1496](https://github.com/py-pdf/fpdf2/issues/1496)
 * clarified documentation in [Maths.md](https://py-pdf.github.io/fpdf2/Maths.html) regarding DataFrame string conversion for PDF rendering
-* make `numpy` an optional dependency to improve the performance of `pack_codes_into_bytes()` - _cf._ [issue #1380](https://github.com/py-pdf/fpdf2/issues/1380)
 
+### Changed
+* [`accept_page_break`](https://py-pdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.accept_page_break) is now only called once per page break - _cf._ [issue #1489](https://github.com/py-pdf/fpdf2/issues/1489)
 
 ## [2.8.3] - 2025-04-22
 ### Added
