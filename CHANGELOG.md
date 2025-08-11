@@ -16,7 +16,9 @@ in order to get warned about deprecated features used in your code.
 
 This can also be enabled programmatically with `warnings.simplefilter('default', DeprecationWarning)`.
 
-## [2.8.4] - Not released yet
+## [2.8.5] - Not released yet
+
+## [2.8.4] - 2025-08-11
 ### Added
 * documentation on [internal linking with variable page numbers](https://py-pdf.github.io/fpdf2/Links.html#internal-links)
 * documentation on [using the Ibis library](https://py-pdf.github.io/fpdf2/Maths.html#using-ibis)
