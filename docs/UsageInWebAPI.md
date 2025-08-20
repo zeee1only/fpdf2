@@ -229,6 +229,6 @@ Check [tutorial/notebook.ipynb](https://github.com/py-pdf/fpdf2/blob/master/tuto
 
 
 ## web2py ##
-Usage of the original PyFPDF lib with [web2py](http://www.web2py.com/) is described here: <https://github.com/reingart/pyfpdf/blob/master/docs/Web2Py.md>
+Usage of [the original PyFPDF library](History.md) with [web2py](http://www.web2py.com/) is described here: <https://github.com/reingart/pyfpdf/blob/master/docs/Web2Py.md>
 
 `v1.7.2` of PyFPDF is included in `web2py` since release `1.85.2`: <https://github.com/web2py/web2py/tree/master/gluon/contrib/fpdf>
