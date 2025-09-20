@@ -1,4 +1,4 @@
-"""
+"""mkdir -p assets docs/generated src
 PDF template helpers for fpdf2.
 
 Usage documentation at: <https://py-pdf.github.io/fpdf2/Templates.html>
