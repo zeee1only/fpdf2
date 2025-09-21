@@ -1,0 +1,188 @@
+from fpdf import FPDF
+from datetime import datetime
+
+class MN_Petition_Generator:
+    def __init__(self, petitioner_name, county, case_numbers, address, email, phone):
+        self.pdf = FPDF()
+        self.petitioner_name = petitioner_name
+        self.county = county
+        self.case_numbers = case_numbers
+        self.address = address
+        self.email = email
+        self.phone = phone
+        self.year = "2025"
+        
+    def create_header(self):
+        self.pdf.set_font("Arial", "B", 16)
+        self.pdf.cell(0, 10, "STATE OF MINNESOTA", 0, 1, "C")
+        self.pdf.set_font("Arial", "B", 14)
+        self.pdf.cell(0, 10, f"COUNTY OF {self.county.upper()}", 0, 1, "C")
+        self.pdf.cell(0, 10, "DISTRICT COURT", 0, 1, "C")
+        self.pdf.cell(0, 10, "THIRD JUDICIAL DISTRICT", 0, 1, "C")
+        self.pdf.ln(5)
+        
+    def create_case_caption(self):
+        self.pdf.set_font("Arial", "B", 12)
+        self.pdf.cell(0, 10, "In the Matter of:", 0, 1, "C")
+        self.pdf.set_font("Arial", "B", 14)
+        self.pdf.cell(0, 10, self.petitioner_name.upper(), 0, 1, "C")
+        self.pdf.set_font("Arial", "B", 12)
+        self.pdf.cell(0, 10, "Petitioner,", 0, 1, "C")
+        self.pdf.cell(0, 10, "v.", 0, 1, "C")
+        self.pdf.cell(0, 10, "STATE OF MINNESOTA,", 0, 1, "C")
+        self.pdf.cell(0, 10, "Respondent.", 0, 1, "C")
+        self.pdf.ln(5)
+        
+        self.pdf.set_font("Arial", "B", 12)
+        self.pdf.cell(0, 10, f"Court File Numbers: {', '.join(self.case_numbers)}", 0, 1, "C")
+        self.pdf.ln(10)
+        
+    def create_title(self):
+        self.pdf.set_font("Arial", "B", 16)
+        self.pdf.cell(0, 10, "CONSOLIDATED PETITION FOR POST-CONVICTION RELIEF", 0, 1, "C")
+        self.pdf.set_font("Arial", "", 12)
+        self.pdf.cell(0, 10, "(Minn. Stat. § 590.01)", 0, 1, "C")
+        self.pdf.ln(10)
+        
+    def add_section(self, title, content):
+        self.pdf.set_font("Arial", "B", 12)
+        self.pdf.cell(0, 10, title, 0, 1)
+        self.pdf.set_font("Arial", "", 12)
+        if isinstance(content, list):
+            for line in content:
+                self.pdf.multi_cell(0, 6, line)
+                self.pdf.ln(2)
+        else:
+            self.pdf.multi_cell(0, 6, content)
+        self.pdf.ln(5)
+        
+    def create_petition(self):
+        self.pdf.add_page()
+        self.pdf.set_auto_page_break(auto=True, margin=15)
+        
+        self.create_header()
+        self.create_case_caption()
+        self.create_title()
+        
+        jurisdiction_content = [
+            f"1. This Court has jurisdiction over this petition under Minn. Stat. § 590.01, as the underlying convictions occurred in {self.county} County District Court.",
+            "2. Venue is proper in Rice County, as all cases were adjudicated here.",
+            "3. This petition is timely under Minn. Stat. § 590.01, subd. 4, as it is filed within two years of the discovery of new evidence of government misconduct (e.g., Brady/Giglio violations and obstruction patterns), or alternatively, the interests of justice exception applies due to the ongoing nature of the violations."
+        ]
+        self.add_section("I. JURISDICTION AND VENUE", jurisdiction_content)
+        
+        parties_content = [
+            f"4. Petitioner: {self.petitioner_name}, currently residing at {self.address}, convicted in the referenced cases.",
+            "5. Respondent: State of Minnesota, represented by the Rice County Attorney's Office."
+        ]
+        self.add_section("II. PARTIES", parties_content)
+        
+        procedural_history = [
+            "5. Case 66-CR-21-1673 (Felony Controlled Substance Crime 3rd Degree - Sale - Narcotic): Petitioner entered a plea and was convicted in 2021 following an illegal search, Brady/Giglio violations (undisclosed marital relationship between Prosecutor Kathryn Burbank and Investigator Jeff Burbank), and obstruction of justice (false statements by Heather Slechta and call terminations by RCAO employees).",
+            "6. Case 66-CR-23-1019 (Felony Burglary - 2nd Degree): Petitioner was charged and convicted in 2023 as retaliation for inquiries into the 2021 misconduct, involving continued conflict of interest and obstruction under 18 U.S.C. § 1512.",
+            "7. Case 66-CR-23-1045 (Felony Drugs - 5th Degree): Petitioner was charged and convicted in 2023, involving medical indifference during detention, fabricated evidence, and further obstruction, linked to the prior cases.",
+            "8. No direct appeals were taken, but this petition consolidates claims based on newly discovered evidence of a systemic pattern."
+        ]
+        self.add_section("III. PROCEDURAL HISTORY", procedural_history)
+        
+        factual_background = [
+            "9. The cases stem from a pattern of misconduct by RCAO officials (e.g., Kathryn Burbank, Tyler Rew, Heather Slechta, Lisa Kuhlman) and Faribault Police Department personnel.",
+            "10. Key Evidence Across Cases (Incorporated by Reference):",
+            "   - Illegal Search Warrant (Exh. A, B): Cell phone warrant in 66-CR-21-1673 lacked nexus and particularity.",
+            "   - Brady/Giglio Violations (Exh. I): Undisclosed marital relationship between Prosecutor Kathryn Burbank and Investigator Jeff Burbank, who was a member of the Cannon River Drug and Violent Offender Task Force (CRDVOTF) from January 2018 to February 2022, impeaching credibility.",
+            "   - Obstruction Patterns (Exh. G, L): Pattern of misinformation including: Heather Slechta's false 'Faribault County' claim; RCAO call terminations; incorrect contact info for Community Corrections (507-332-6106) and Court Admin fax (507-332-6199); disputed receipt of documents; and a September 12, 2025 phone call where an RCAO employee confirmed Burbank's involvement then abruptly terminated the call when conflict of interest was raised.",
+            "   - Retaliatory Charging (Exh. K): Burglary charge in 66-CR-23-1019 tied to PCR inquiries.",
+            "   - Medical Indifference (Exh. D): Ignored medical needs in 66-CR-23-1045, linked to retaliation.",
+            "   - Fabricated Evidence: Circumstantial pattern across cases, including withheld records.",
+            "11. These acts form a continuous scheme to secure wrongful convictions and suppress challenges, as detailed in the attached fortified legal hierarchies for each case."
+        ]
+        self.add_section("IV. FACTUAL BACKGROUND", factual_background)
+        
+        grounds_for_relief = [
+            "12. Ground 1: 4th Amendment Violations (Illegal Search - Case 66-CR-21-1673): The cell phone warrant was a general warrant lacking probable cause under Illinois v. Gates and Riley v. California. Evidence obtained should be suppressed, invalidating the conviction.",
+            "13. Ground 2: 14th Amendment Violations (Brady/Giglio - All Cases): Non-disclosure of the Burbank relationship was material under Giglio v. United States and Kyles v. Whitley, violating due process. No need to prove actual bias; institutional conflict suffices.",
+            "14. Ground 3: 14th Amendment Violations (Retaliatory Prosecution - Cases 66-CR-23-1019 & 66-CR-23-1045): Selective charging was but-for caused by Petitioner's inquiries, overcoming probable cause under Nieves v. Bartlett. Pattern across cases establishes animus.",
+            "15. Ground 4: 14th Amendment Violations (Medical Indifference - Case 66-CR-23-1045): Reckless disregard for medical needs was objectively unreasonable under Kingsley v. Hendrickson, tied to retaliatory motive.",
+            "16. Ground 5: 14th Amendment Violations (Fabricated Evidence - Case 66-CR-23-1045): Vindictiveness presumed under Blackledge v. Perry due to cross-case pattern, shifting burden to State.",
+            "17. Ground 6: Prosecutorial Misconduct (Conflict of Interest - All Cases): Burbank bias persisted institutionally under Young v. U.S. ex rel. Vuitton, tainting all proceedings. Jeff Burbank's role as CRDVOTF agent (2018-2022) directly overlapped with Kathryn Burbank's prosecution role.",
+            "18. Ground 7: Obstruction of Justice (18 U.S.C. § 1512 - All Cases): False statements, record withholding, and interference were anticipatory obstructions of PCR proceedings, with intent inferred from context under U.S. v. Aguilar. This includes the September 12, 2025 phone call termination when conflict of interest was raised.",
+            "19. These violations invalidated Petitioner's pleas/convictions, as they were not knowing, voluntary, or intelligent. The pattern demonstrates government misconduct warranting relief in the interests of justice."
+        ]
+        self.add_section("V. GROUNDS FOR RELIEF", grounds_for_relief)
+        
+        prayer_for_relief = [
+            "WHEREFORE, Petitioner respectfully requests that this Court:",
+            "a. Consolidate these cases for post-conviction purposes;",
+            "b. Hold an evidentiary hearing under Minn. Stat. § 590.04;",
+            "c. Vacate the pleas, convictions, and sentences in all three cases;",
+            "d. Dismiss all charges with prejudice;",
+            "e. Order expungement of records;",
+            "f. Award costs, fees, and any other relief deemed just and equitable."
+        ]
+        self.add_section("VI. PRAYER FOR RELIEF", prayer_for_relief)
+        
+        self.pdf.ln(10)
+        self.pdf.cell(0, 10, "Respectfully submitted,", 0, 1)
+        self.pdf.ln(10)
+        self.pdf.cell(0, 10, "______________________________", 0, 1)
+        self.pdf.set_font("Arial", "B", 12)
+        self.pdf.cell(0, 10, f"{self.petitioner_name}, Petitioner Pro Se", 0, 1)
+        self.pdf.set_font("Arial", "", 12)
+        self.pdf.cell(0, 6, self.address, 0, 1)
+        self.pdf.cell(0, 6, self.phone, 0, 1)
+        self.pdf.cell(0, 6, self.email, 0, 1)
+        self.pdf.ln(5)
+        self.pdf.cell(0, 6, f"Dated: {self.year}", 0, 1)
+        
+        self.pdf.add_page()
+        self.pdf.set_font("Arial", "B", 12)
+        self.pdf.cell(0, 10, "VERIFICATION", 0, 1)
+        self.pdf.set_font("Arial", "", 12)
+        verification_text = f"I, {self.petitioner_name}, declare under penalty of perjury that the foregoing is true and correct to the best of my knowledge."
+        self.pdf.multi_cell(0, 6, verification_text)
+        self.pdf.ln(10)
+        self.pdf.cell(0, 10, "______________________________", 0, 1)
+        self.pdf.cell(0, 10, self.petitioner_name, 0, 1)
+        self.pdf.ln(10)
+        
+        self.pdf.set_font("Arial", "B", 12)
+        self.pdf.cell(0, 10, "NOTARY PUBLIC", 0, 1)
+        self.pdf.set_font("Arial", "", 12)
+        self.pdf.cell(0, 6, "State of Minnesota", 0, 1)
+        self.pdf.cell(0, 6, f"County of {self.county}", 0, 1)
+        self.pdf.ln(5)
+        
+        notary_text = f"Subscribed and sworn to (or affirmed) before me on this _____ day of __________, {self.year}, by {self.petitioner_name}, proved to me on the basis of satisfactory evidence to be the person who appeared before me."
+        self.pdf.multi_cell(0, 6, notary_text)
+        self.pdf.ln(10)
+        self.pdf.cell(0, 10, "______________________________", 0, 1)
+        self.pdf.cell(0, 10, "Notary Public", 0, 1)
+        self.pdf.cell(0, 10, "My Commission Expires: ______________________________", 0, 1)
+        self.pdf.cell(0, 10, "(Seal)", 0, 1)
+        
+        self.pdf.ln(15)
+        self.pdf.set_font("Arial", "I", 10)
+        footer_note = "Note: This document was generated using FPDF2. Attach all referenced exhibits (e.g., Exh. A through L) with actual evidence. Consult a licensed attorney before filing, as this does not constitute legal advice. File with the Rice County District Court Clerk, serving copies on the Rice County Attorney's Office."
+        self.pdf.multi_cell(0, 5, footer_note)
+        
+    def save_petition(self, filename):
+        self.pdf.output(filename)
+        
+if __name__ == "__main__":
+    petitioner_name = "Zakaria Abdullahi"
+    county = "Rice"
+    case_numbers = ["66-CR-21-1673", "66-CR-23-1019", "66-CR-23-1045"]
+    address = "680 Greenbrier St, Saint Paul, MN 55106"
+    email = "ZAKABDULLAHI2014@GMAIL.COM"
+    phone = "612-429-8834"
+    
+    petition = MN_Petition_Generator(petitioner_name, county, case_numbers, address, email, phone)
+    petition.create_petition()
+    petition.save_petition("Abdullahi_PostConviction_Petition.pdf")
+    
+    print("Petition generated successfully as 'Abdullahi_PostConviction_Petition.pdf'")
+    print("Please remember to:")
+    print("1. Sign the verification section")
+    print("2. Have the document notarized")
+    print("3. Attach all exhibits (A through L) before filing")
+    print("4. File with Rice County District Court and serve the County Attorney")
